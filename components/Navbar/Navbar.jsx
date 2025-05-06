@@ -22,7 +22,7 @@ const Navbar = ({ userInfo }) => {
     <div className="bg-white flex items-center justify-between px-6 py-3 drop-shadow">
       <img
         className="w-[120px] object-cover"
-        src="../../public/noteji-icon.png"
+        src="/noteji-icon.png"
         alt=""
       />
       {/* <h2 className="text-xl font-medium text-amber-600 py-2">Noteji</h2> */}
