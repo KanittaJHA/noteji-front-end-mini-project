@@ -16,7 +16,7 @@ const SignUp = () => {
   const handleSingUp = async (e) => {
     e.preventDefault();
 
-    if(!name) {
+    if (!name) {
       setError("Please enter your name.");
       return;
     }
@@ -43,15 +43,13 @@ const SignUp = () => {
 
       // Handle successful registration response
       if (response.data && response.data.error) {
-          setError(response.data.message)
-          return
+        setError(response.data.message);
+        return;
       }
 
-      if (response.data && response.data.accessToken) {
-        localStorage.setItem("token", response.data.accessToken);
+      if (response.data?.message === "Registration successfully") {
         navigate("/dashboard");
       }
-
     } catch (error) {
       // Handle registration error
       if (error.response?.data?.message) {
@@ -99,7 +97,10 @@ const SignUp = () => {
             </button>
 
             <p className="text-sm text-center mt-4">
-              Already have an account? <Link to="/login" className="font-medium text-primary underline">Login</Link>
+              Already have an account?{" "}
+              <Link to="/login" className="font-medium text-primary underline">
+                Login
+              </Link>
             </p>
           </form>
         </div>

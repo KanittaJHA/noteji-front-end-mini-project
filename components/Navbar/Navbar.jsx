@@ -2,20 +2,30 @@ import React, { useState } from "react";
 import ProfileInfo from "../Cards/ProfileInfo";
 import { useNavigate } from "react-router-dom";
 import SearchBar from "../SearchBar/SearchBar";
+import axiosInstance from "../../utils/axiosInstance";
 
-const Navbar = ({ userInfo }) => {
+const Navbar = ({ userInfo, onSearchNote, handleClearSearch }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
 
-  const onLogout = () => {
-    localStorage.clear();
-    navigate("/login");
+  const onLogout = async () => {
+    try {
+      await axiosInstance.post("/api/users/logout");
+      navigate("/login");
+    } catch (error) {
+      console.error("Logout failed", error);
+    }
   };
 
-  const handleSearch = () => {};
+  const handleSearch = () => {
+    if (searchQuery) {
+      onSearchNote(searchQuery);
+    }
+  };
 
   const onClearSearch = () => {
     setSearchQuery("");
+    handleClearSearch();
   };
 
   return (
@@ -25,7 +35,6 @@ const Navbar = ({ userInfo }) => {
         src="/noteji-icon.png"
         alt=""
       />
-      {/* <h2 className="text-xl font-medium text-amber-600 py-2">Noteji</h2> */}
 
       <SearchBar
         value={searchQuery}

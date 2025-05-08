@@ -35,8 +35,7 @@ const Login = () => {
       });
 
       // Handle successful login response
-      if (response.data && response.data.accessToken) {
-        localStorage.setItem("token", response.data.accessToken);
+      if (response.data?.message === "Login successfully") {
         navigate("/dashboard");
       }
     } catch (error) {
