@@ -56,16 +56,21 @@ const Home = () => {
   const getUserInfo = async () => {
     try {
       const response = await axiosInstance.get("/api/users/get-user");
-
-      if (response.data && response.data.user) {
+  
+      if (response.data?.user) {
         setUserInfo(response.data.user);
+      } else {
+        throw new Error('User data not found.');
       }
     } catch (error) {
       if (error.response?.status === 401 || error.response?.status === 403) {
+        console.error('Authentication failed. Redirecting to login...');
         navigate("/login");
+      } else {
+        console.error('Error fetching user information:', error.message);
       }
     }
-  };
+  };  
 
   // Get All notes
   const getAllNotes = async () => {
